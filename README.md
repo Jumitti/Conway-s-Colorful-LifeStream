@@ -1,2 +1,2 @@
-# Conway-s-Colorful-LifeStream
+# Conway's Colorful StreamLife
 Just another Game of Life
