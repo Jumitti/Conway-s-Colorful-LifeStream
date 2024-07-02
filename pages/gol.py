@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import time
+from utils.page_config import page_congif
 
 
 def update_grid(grid):
@@ -35,14 +36,13 @@ def draw_grid(grid):
     st.text(grid_str)
 
 
-st.set_page_config(page_title="Conway's Colorful LifeStream", page_icon="🦠", initial_sidebar_state="expanded", layout="wide")
-
-st.sidebar.title("Conway's Colorful LifeStream")
+page_congif()
+st.sidebar.title("Conway's Game of LifeStream")
 st.sidebar.divider()
 
-st.sidebar.subheader("Settings")
+st.sidebar.subheader("Settings 🛠️")
 
-st.sidebar.markdown("**Grid size**", help="It's a square")
+st.sidebar.markdown("**Grid size 📅**", help="It's a square")
 grid_size = st.sidebar.slider("Grid size", min_value=10, max_value=250, value=50, label_visibility='collapsed')
 
 col1, col2 = st.sidebar.columns(2, gap="small")
@@ -72,8 +72,10 @@ birth_rules = {
     3: birth_rules_blue
 }
 
+color_counts = {1: np.sum(st.session_state.grid == 1), 2: np.sum(st.session_state.grid == 2),
+                3: np.sum(st.session_state.grid == 3)}
 
-if st.sidebar.button("Reset grid"):
+if st.sidebar.button("Reset grid 🔄️"):
     st.session_state.grid = np.random.choice(
         [0, 1, 2, 3],
         size=(grid_size, grid_size),
@@ -81,18 +83,15 @@ if st.sidebar.button("Reset grid"):
     )
 
 st.sidebar.divider()
-if st.sidebar.button("Next step"):
+col1p, col2p = st.sidebar.columns(2, gap="small")
+if col1p.toggle("Automatic ⏯️"):
     st.session_state.grid, color_counts = update_grid(st.session_state.grid)
-    st.text(f"Living cells - Green: {color_counts[1]}, Red: {color_counts[2]}, Blue: {color_counts[3]}")
-
-if st.sidebar.toggle("Automatic"):
-    st.session_state.grid, color_counts = update_grid(st.session_state.grid)
-    st.text(f"Living cells - Green: {color_counts[1]}, Red: {color_counts[2]}, Blue: {color_counts[3]}")
+    st.text(f"🟩: {color_counts[1]} | 🟥: {color_counts[2]} | 🟦: {color_counts[3]}")
     draw_grid(st.session_state.grid)
     time.sleep(0.1)
     st.rerun()
 
-color_counts = {1: np.sum(st.session_state.grid == 1), 2: np.sum(st.session_state.grid == 2),
-                3: np.sum(st.session_state.grid == 3)}
-st.text(f"Living cells - Green: {color_counts[1]}, Red: {color_counts[2]}, Blue: {color_counts[3]}")
+if col2p.button("Next step 🦶🏽"):
+    st.session_state.grid, color_counts = update_grid(st.session_state.grid)
+st.text(f"🟩: {color_counts[1]} | 🟥: {color_counts[2]} | 🟦: {color_counts[3]}")
 draw_grid(st.session_state.grid)
