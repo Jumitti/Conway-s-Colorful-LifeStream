@@ -1,4 +1,4 @@
-### Welcome to this little Turing machine laboratory
+### Welcome to this little Turing machine laboratory [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://turing-machine.streamlit.app/)
 
 ## Game of Life
 
@@ -20,6 +20,6 @@ original rules is that if two ants collide on the same cell, they repel each oth
 
 Rules of Langton's Ant:
 - Each ant follows simple rules based on the color of the cell it's on:
-- **White**: Turn right 90 degrees.
-- **Other colors**: Turn left 90 degrees
+  - **White**: Turn right 90 degrees.
+  - **Other colors**: Turn left 90 degrees
 - The grid is infinite, and ants can move in any direction.
