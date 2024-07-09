@@ -65,22 +65,23 @@ st.sidebar.divider()
 
 st.sidebar.subheader("Settings 🛠️")
 
-st.sidebar.markdown("**Grid size 📅**", help="It's a square")
-grid_size = st.sidebar.slider("Grid size", min_value=10, max_value=250, value=50, step=1, label_visibility="collapsed")
+st.sidebar.markdown("**Grid size 📅**")
+width_size = st.sidebar.slider("Width size ➡️", min_value=10, max_value=250, value=50, step=1)
+length_size = st.sidebar.slider("Length size ⬇️", min_value=10, max_value=250, value=50, step=1)
 
 st.sidebar.markdown("**Number of bugs 🐜**", help="Default 3")
 number_bugs = st.sidebar.number_input("Number of bugs", value=3, step=1, min_value=1, max_value=8,
                                       label_visibility="collapsed")
 
 if 'grid_ant' not in st.session_state:
-    grid_ant = np.zeros((grid_size, grid_size), dtype=int)
+    grid_ant = np.zeros((length_size, width_size), dtype=int)
 
     ant_positions = []
     ant_directions = []
     ant_colors = []
 
     for i in range(1, number_bugs + 1):
-        ant_positions.append((random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)))
+        ant_positions.append((random.randint(0, length_size - 1), random.randint(0, width_size - 1)))
         ant_directions.append(random.randint(0, 3))
         ant_colors.append(i)
 
@@ -96,14 +97,14 @@ st.session_state.ant_directions = ant_directions
 st.session_state.ant_colors = ant_colors
 
 if st.sidebar.button("Reset grid 🔄️"):
-    grid_ant = np.zeros((grid_size, grid_size), dtype=int)
+    grid_ant = np.zeros((length_size, width_size), dtype=int)
 
     ant_positions = []
     ant_directions = []
     ant_colors = []
 
     for i in range(1, number_bugs + 1):
-        ant_positions.append((random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)))
+        ant_positions.append((random.randint(0, length_size - 1), random.randint(0, width_size - 1)))
         ant_directions.append(random.randint(0, 3))
         ant_colors.append(i)
 
